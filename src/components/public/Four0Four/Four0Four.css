@@ -1,0 +1,42 @@
+.four-o-four {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  text-align: center;
+  padding: 15px 25px 42px 25px;
+  max-width: 100% !important;
+}
+.four-o-four h1 {
+  font-size: 90px;
+  margin-top: 0;
+  padding-top: 0;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.four-o-four h2 {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.four-o-four h3 {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.go-home {
+  padding: 15px 60px;
+  background-color: rgb(20, 128, 182);
+  color: #fff;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 50px;
+}
+.go-home:hover {
+  background-color: rgb(4, 56, 82);
+  text-decoration: none;
+  color: #fff;
+}

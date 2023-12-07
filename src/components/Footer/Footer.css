@@ -1,0 +1,139 @@
+.partners-wrapper {
+  padding: 40px 20px;
+  background-color: rgb(184, 183, 183);
+}
+
+.partners {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 1.3rem;
+}
+
+@media screen and (max-width: 640px) {}
+
+.partner-item {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  justify-self: center;
+  margin: 10px 0;
+}
+
+.partner-item img {
+  opacity: 0.99;
+  max-height: 100%;
+  max-width: 100%;
+  filter: grayscale(100%);
+  filter: -webkit-grayscale(100%);
+}
+
+footer.footer {
+  padding: 70px 20px;
+  background-color: rgb(0, 1, 2);
+}
+
+.footer-wrapper {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-gap: 0.8rem;
+  grid-auto-flow: dense;
+}
+
+.col-block {
+  min-height: 220px;
+}
+
+.col-block .specimen {
+  display: flex;
+  flex-direction: column;
+}
+
+.desc {
+  font-weight: 300;
+  font-size: 1.12rem;
+  color: #bbb;
+}
+
+.col-block .specimen>.imager {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.col-block .specimen>.imager img {
+  max-width: 100%;
+  max-height: 100%;
+  transition: 0.7s ease-in-out;
+  -webkit-filter: grayscale(0%);
+  /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+}
+
+.col-block .specimen>.imager:hover img {
+  -webkit-filter: grayscale(100%);
+  /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+
+.social-brands {
+  border-top: 0.02rem solid #333;
+  margin-top: 30px;
+  padding-top: 20px;
+  color: rgb(205, 224, 246);
+}
+
+.social-brands a {
+  font-size: 40px;
+  margin-right: 20px;
+  transition: 0.4s ease-in-out;
+  color: rgb(205, 224, 246);
+}
+
+.social-brands a:hover {
+  color: #000;
+}
+
+.col-block ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.col-block ul h4 {
+  margin: 0 !important;
+  padding-bottom: 10px;
+  font-weight: 900;
+  font-size: 20px;
+  color: #bababa;
+}
+
+.col-block ul li {
+  margin: 0;
+  padding: 2px 0 6px 0;
+}
+
+.col-block ul li a {
+  display: block;
+  font-size: 1.22rem;
+  font-weight: 300;
+  padding: 0;
+  color: #cdcdcd;
+}
+
+.col-block ul li a:hover {
+  color: #fff;
+}
+
+.terms-policy {
+  border-top: 0.02rem solid #333;
+  margin-top: 20px;
+  font-weight: 300;
+  font-size: 90%;
+  line-height: 1.5;
+  padding-top: 20px;
+  color: #a1a1a1;
+}

@@ -1,0 +1,166 @@
+import React from "react";
+import { Outlet, useLocation, useParams, NavLink } from "react-router-dom";
+import Card from "@mui/material/Card";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import MailOutline from "@mui/icons-material/MailOutline";
+import PlaceHolder from "../../templates/PlaceHolder";
+import HttpService from "../../../services/HttpService";
+import DatePipe from "../../../pipes/DatePipe";
+
+const UsersCategory = (props: any) => {
+  console.log(" Accounts page Renders");
+  let val = props.data;
+  const [users, setUsers] = React.useState<any[]>([]);
+  const [result_loaded, setResultLoaded] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string>("");
+  let params = useParams();
+  const location = useLocation();
+  const pageName = location.pathname;
+  const [isParam, setParam] = React.useState(false);
+  const [ticket_modal_open, setNewModalOpen] = React.useState(false);
+  const parts = location.pathname.split("/");
+  const base = "/" + parts[1] + "/";
+  React.useEffect(() => {
+    const isParam = params.usersId ? true : false;
+    console.log("IS PARAM::: ", isParam);
+    console.log("pageName::: ", pageName);
+    setParam(isParam);
+    if (
+      (!isParam && pageName === "/admin/users") ||
+      (!isParam && pageName === "/admin/users")
+    ) {
+      doAjax();
+    }
+  }, [params]); //componentDidMount
+
+  const doAjax = () => {
+    setLoading(true);
+    setResultLoaded(false);
+    HttpService.getHeader("users/all").then(
+      (result) => {
+        setLoading(false);
+        console.log(result);
+        if (Array.isArray(result.data)) {
+          setUsers(result.data);
+        } else {
+          setUsers([]);
+        }
+        setResultLoaded(true);
+      },
+      (error) => {
+        setLoading(false);
+        setResultLoaded(true);
+        setError(error.message);
+        setUsers([]);
+      }
+    ); //fetch
+  }; //doAjax
+
+  const launchNewModal = () => {
+    setNewModalOpen(true);
+  };
+
+  const newModalClose = (data: any = false) => {
+    setNewModalOpen(false);
+    if (data) {
+      users.unshift(data);
+    }
+  };
+
+  if (!isParam) {
+    return (
+      <>
+        {!loading && (
+          <div className="pxy20">
+            <Card sx={{ p: "0", m: "0" }}>
+              <List
+                sx={{
+                  p: "0",
+                  m: "0",
+                  // selected and (selected + hover) states
+                  "&& .Mui-selected, && .Mui-selected:hover": {
+                    bgcolor: "red",
+                    "&, & .MuiListItemIcon-root": {
+                      color: "pink",
+                    },
+                  },
+                  // hover states
+                  "& .MuiListItemButton-root:hover": {
+                    bgcolor: "orange",
+                    "&, & .MuiListItemIcon-root": {
+                      color: "white",
+                    },
+                  },
+                }}
+              >
+                {users.map((item: any, index: number) => (
+                  <ListItem
+                    disablePadding
+                    button
+                    key={item.id}
+                    divider={true}
+                    component={NavLink}
+                    to={`${base}users/p/${item.id}`}
+                    secondaryAction={
+                      <>
+                        <span>
+                          <DatePipe value={item.create_date} />
+                        </span>
+                      </>
+                    }
+                  >
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <i className="fas fa-bank"></i>
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={
+                          <Typography component={"h2"}>{item.nuban}</Typography>
+                        }
+                        secondary={
+                          <Typography component={"span"}>
+                            {item.type_title}
+                          </Typography>
+                        }
+                      ></ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+              {result_loaded && users.length === 0 && (
+                <div className="result-error">
+                  <span>
+                    <i className="fas fa-exclamation-triangle"></i>
+                  </span>
+                  <h3> No users found!</h3>
+                </div>
+              )}
+            </Card>
+          </div>
+        )}
+        {loading && (
+          <>
+            <div className="pxy20">
+              <Card className="pxy20">
+                <PlaceHolder type="list" />
+                <Divider />
+                <PlaceHolder type="list" />
+              </Card>
+            </div>
+          </>
+        )}
+      </>
+    );
+  } else {
+    return <Outlet />;
+  }
+};
+
+export default UsersCategory;
